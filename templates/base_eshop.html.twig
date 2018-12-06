@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block hlavicka %}
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                      <picture>
+                          <img src="re-taska_logo.png" class="img-fluid" alt="Obrázek se nechce ukázat :P">
+                      </picture>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ path('homepage') }}">Hlavní stránka</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ path('showproducts') }}">Produkty</a>
+                      </li>
+                      <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" name="id" placeholder="Vyhledávání" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Vyhledat</button>
+                      </form>
+                      <li class="nav-item">
+                        <a class="nav-link">777 888 999</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Košík</a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+        {% endblock %}
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block footer %} 
+        <div class = "footer">
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                     
+                      <li class="nav-item">
+                        <a class="nav-link" href="{{ path('homepage') }}">Hlavní stránka</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Produkty</a>
+                      </li>
+                      <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Vyhledávání" aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Vyhledat</button>
+                      </form>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Košík</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Copyright</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="#">Kontaktní info</a>
+                      </li>
+                       <li class="nav-item">
+                        <a class="nav-link" href="#">Obrázek</a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+                
+        </div>
+        {%endblock%}
+        {% block javascripts %}{% endblock %}
+        
+        
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    </body>
+</html>

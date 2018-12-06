@@ -1,0 +1,46 @@
+{% extends 'base_eshop.html.twig' %}
+{% block title %} {% endblock %}
+{% block body %} 
+    <div class = "container">
+        <br>
+        <h5> {{ product.name }} </h5>
+        <br>
+        <div class = "row">
+            <div class = "col-6">
+                {{product.description}}
+            </div>
+            <div class = "col-1">
+            </div>
+            <div class = "col-3">
+                Kusů skladem
+            </div>
+            <div class = "col-2">
+                {{product.stock}}
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-6">
+                
+            </div>
+            <div class = "col-1">
+            </div>
+            <div class = "col-3">
+                Cena
+            </div>
+            <div class = "col-2">
+                {{product.price}} Kč
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-6">
+            </div>
+            <div class = "col-1">
+            </div>
+            <div class = "col-5">
+                <a class="btn btn-primary" href="{{ path('order') }}" role="button">Objednat</a>
+            </div>
+        </div>
+    <a href="{{ path('showproducts')}}">Zpět na výpis produktů</a>
+    </div>
+    <br>
+{% endblock %}

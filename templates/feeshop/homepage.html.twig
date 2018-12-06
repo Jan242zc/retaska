@@ -1,0 +1,26 @@
+{% extends 'base_eshop.html.twig' %}
+{% block title %} {% endblock %}
+{% block body %} 
+<div class="container">
+    <br>
+    <div>
+        <h4> O nás </h4>
+        Textové informace o projektu re-taška a obrázek retašky nebo oceánu.
+    </div>
+    <br>
+    <div>
+    <h4> TOP produkty </h4>
+        <div class ="row">
+            {% for product in products %}
+                <div class ="col-4">
+                    <p>
+                    {{ product.name }} <br>
+                    {{ product.price }} Kč<br>
+                    <a class="btn btn-primary" href="{{ path('showproducts_detail', {'id': product.id}) }}" role="button">Detail produktu</a>
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

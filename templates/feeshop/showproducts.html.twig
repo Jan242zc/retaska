@@ -1,0 +1,31 @@
+{% extends 'base_eshop.html.twig' %}
+{% block body %} 
+    <div class = "container">
+        <br>
+        <div class = "row">
+            <div class = "col-12">
+                <h4>Seznam kategorií</h4> <br>
+                (Seznam kategorií)
+                <br>
+            </div>
+        </div>
+        <div class = "row">
+            <div class = "col-12">
+                <h4> Seznam produktů </h4>
+                
+            </div>
+        </div>
+        <div class = "row">
+            {% for product in products %}
+                <div class = "col-4">
+                    <p>
+                    <h6> {{ product.name }} </h6>
+                    {{ product.price }} Kč <br>
+                    <a href="{{ path('showproducts_detail', {'id': product.id}) }}">Objednat</a>
+                    </p>
+                </div>
+            {% endfor %}
+        </div>
+        <br> 
+    </div>
+{% endblock %}
