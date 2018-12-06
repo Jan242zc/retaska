@@ -1,0 +1,13 @@
+{% extends 'base_eshop.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+<div class ="container">
+    <h3>Vytvořit novou objednávku</h3>
+    
+    {{ include('order/_form.html.twig') }}
+    </div>
+    <a href="{{ path('showproducts') }}">Zpět na seznam produktů</a>
+    </div>
+{% endblock %}

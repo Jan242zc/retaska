@@ -1,0 +1,5 @@
+{{ form_start(form) }}
+    {% form_theme form 'bootstrap_4_layout.html.twig' %}
+    {{ form_widget(form) }}
+    <a class="btn btn-primary" href="{{ path('thanks')}}" role="button">Objednat!</a>
+{{ form_end(form) }}

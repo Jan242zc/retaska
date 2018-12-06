@@ -22,7 +22,13 @@ class ShowProductsController extends AbstractController
     {
         return $this->render('feeshop/showproducts.html.twig', ['products' => $productRepository->findAll()]);
     }
-    
+    /**
+     * @Route("/thx", name="thanks")
+     */
+    public function thx(): Response
+    {
+        return $this->render('feeshop/thanks.html.twig');
+    }
     /**
      * @Route("/{id}", name="showproducts_detail", methods="GET")
      */

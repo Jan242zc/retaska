@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\Order;
 use App\Form\OrderType2;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
@@ -11,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/order")
+ * @Route("/order2")
  */
 class OrderController2 extends AbstractController
 {
