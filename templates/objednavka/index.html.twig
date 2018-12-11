@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Objednavka index{% endblock %}
+
+{% block body %}
+    <h1>Objednavka index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Customer</th>
+                <th>Street</th>
+                <th>City</th>
+                <th>Psc</th>
+                <th>Note</th>
+                <th>ProductPrice</th>
+                <th>DeliveryPrice</th>
+                <th>PaymentPriceCZK</th>
+                <th>PaymentPriceEUR</th>
+                <th>TotalPrice</th>
+                <th>Date</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for objednavka in objednavkas %}
+            <tr>
+                <td>{{ objednavka.id }}</td>
+                <td>{{ objednavka.product }}</td>
+                <td>{{ objednavka.quantity }}</td>
+                <td>{{ objednavka.email }}</td>
+                <td>{{ objednavka.phone }}</td>
+                <td>{{ objednavka.customer }}</td>
+                <td>{{ objednavka.street }}</td>
+                <td>{{ objednavka.city }}</td>
+                <td>{{ objednavka.psc }}</td>
+                <td>{{ objednavka.note }}</td>
+                <td>{{ objednavka.productPrice }}</td>
+                <td>{{ objednavka.deliveryPrice }}</td>
+                <td>{{ objednavka.paymentPriceCZK }}</td>
+                <td>{{ objednavka.paymentPriceEUR }}</td>
+                <td>{{ objednavka.totalPrice }}</td>
+                <td>{{ objednavka.date ? objednavka.date|date('Y-m-d') : '' }}</td>
+                <td>
+                    <a href="{{ path('objednavka_show', {'id': objednavka.id}) }}">show</a>
+                    <a href="{{ path('objednavka_edit', {'id': objednavka.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="17">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('objednavka_new') }}">Create new</a>
+{% endblock %}

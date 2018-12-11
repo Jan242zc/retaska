@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Objednavka{% endblock %}
+
+{% block body %}
+    <h1>Create new Objednavka</h1>
+
+    {{ include('objednavka/_form.html.twig') }}
+
+    <a href="{{ path('objednavka_index') }}">back to list</a>
+{% endblock %}

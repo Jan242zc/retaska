@@ -2,15 +2,18 @@
 
 namespace App\Entity;
 
+use App\Entity\Payment;
+use App\Entity\Country;
+use App\Entity\Delivery;
+use App\Entity\Category;
 use Doctrine\ORM\Mapping as ORM;
-use App\Form\OrderType;
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\Collection;
+
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
- * @ORM\Table(name="purchaseOrder")
+ * @ORM\Entity(repositoryClass="App\Repository\ObjednavkaRepository")
  */
-class Order
+class Objednavka
 {
     /**
      * @ORM\Id()
@@ -22,15 +25,12 @@ class Order
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
+    private $product;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
     private $quantity;
-    
-    ///**
-   // * @Assert\IsTrue(message="Chcete víc, než toho máme")
-   //  */
-   // public function quantityCheck()
-   // {
-   //     return $this->quantity >= OBJEKT PRODUKTU->STOCK
-   // }
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -83,13 +83,50 @@ class Order
     private $note;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
-    private $Product;
+    private $productPrice;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $deliveryPrice;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $paymentPriceCZK;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $paymentPriceEUR;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $totalPrice;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $date;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getProduct(): ?int
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?int $product): self
+    {
+        $this->product = $product;
+
+        return $this;
     }
 
     public function getQuantity(): ?int
@@ -121,7 +158,7 @@ class Order
         return $this->phone;
     }
 
-    public function setPhone(?string $phone): self
+    public function setPhone(string $phone): self
     {
         $this->phone = $phone;
 
@@ -224,14 +261,74 @@ class Order
         return $this;
     }
 
-    public function getProduct(): ?int
+    public function getProductPrice(): ?float
     {
-        return $this->Product;
+        return $this->productPrice;
     }
 
-    public function setProduct(?int $Product): self
+    public function setProductPrice(?float $productPrice): self
     {
-        $this->Product = $Product;
+        $this->productPrice = $productPrice;
+
+        return $this;
+    }
+
+    public function getDeliveryPrice(): ?float
+    {
+        return $this->deliveryPrice;
+    }
+
+    public function setDeliveryPrice(?float $deliveryPrice): self
+    {
+        $this->deliveryPrice = $deliveryPrice;
+
+        return $this;
+    }
+
+    public function getPaymentPriceCZK(): ?float
+    {
+        return $this->paymentPriceCZK;
+    }
+
+    public function setPaymentPriceCZK(?float $paymentPriceCZK): self
+    {
+        $this->paymentPriceCZK = $paymentPriceCZK;
+
+        return $this;
+    }
+
+    public function getPaymentPriceEUR(): ?float
+    {
+        return $this->paymentPriceEUR;
+    }
+
+    public function setPaymentPriceEUR(?float $paymentPriceEUR): self
+    {
+        $this->paymentPriceEUR = $paymentPriceEUR;
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?float
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(?float $totalPrice): self
+    {
+        $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(?\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }
