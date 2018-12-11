@@ -36,6 +36,11 @@ class Product
      */
     private $stock;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category", inversedBy="Products")
+     */
+    private $category;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -85,6 +90,18 @@ class Product
     public function setStock(?int $stock): self
     {
         $this->stock = $stock;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Entity\Category;
 use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,11 +18,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class ShowProductsController extends AbstractController
 {
     /**
-     * @Route("/", name="showproducts", methods="GET|POST")
+     * @Route("/showbycategory/{category}", name="showproducts", methods="GET|POST")
      */
-    public function showProducts(ProductRepository $productRepository): Response
+    public function showProducts(Category $category, CategoryRepository $categoryRepository): Response
     {
-        return $this->render('feeshop/showproducts.html.twig', ['products' => $productRepository->findAll()]);
+        return $this->render('feeshop/showproducts.html.twig', ['argumenty' => [
+        'products' => $category->getProducts(),
+        'categories' => $categoryRepository->findAll()
+        ]]);
     }
     /**
      * @Route("/thx", name="thanks")

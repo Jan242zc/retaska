@@ -17,6 +17,8 @@
                 <th>City</th>
                 <th>Psc</th>
                 <th>Note</th>
+                
+                <th>product</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -32,6 +34,7 @@
                 <td>{{ order.city }}</td>
                 <td>{{ order.psc }}</td>
                 <td>{{ order.note }}</td>
+                <td>{{ order.product }}</td>
                 <td>
                     <a href="{{ path('order_show', {'id': order.id}) }}">show</a>
                     <a href="{{ path('order_edit', {'id': order.id}) }}">edit</a>
@@ -45,5 +48,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('order_new') }}">Create new</a>
+    <a href="{{ path('admin') }}">Zpět do administrace</a>
 {% endblock %}

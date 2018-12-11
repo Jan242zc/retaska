@@ -7,7 +7,7 @@
     <h3>Vytvořit novou objednávku</h3>
     
     {{ include('order/_form.html.twig') }}
-    </div>
-    <a href="{{ path('showproducts') }}">Zpět na seznam produktů</a>
-    </div>
+ 
+    <a href="{{ path('showproducts', {category: 1}) }}">Zpět na seznam produktů</a>
+</div>
 {% endblock %}

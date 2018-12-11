@@ -4,39 +4,43 @@
         <meta charset="UTF-8">
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block hlavicka %}
+            <div class="container">
+            
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                      <picture>
-                          <img src="re-taska_logo.png" class="img-fluid" alt="Obrázek se nechce ukázat :P">
-                      </picture>
+                      <a class="navbar-brand" href="#">
+                        <img src="App/re-taska_logo.png" alt=":P">
+                      </a>
                       <li class="nav-item">
                         <a class="nav-link" href="{{ path('homepage') }}">Hlavní stránka</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="{{ path('showproducts') }}">Produkty</a>
+                        <a class="nav-link" href="{{ path('showproducts', {'category': 1}) }}">Produkty</a>
                       </li>
                       <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" name="id" placeholder="Vyhledávání" aria-label="Search">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Vyhledat</button>
                       </form>
-                      <li class="nav-item">
-                        <a class="nav-link">777 888 999</a>
-                      </li>
+                      <span class="navbar-text">
+                           &nbsp 777 888 999 
+                      </span>
                       <li class="nav-item">
                         <a class="nav-link" href="#">Košík</a>
                       </li>
                     </ul>
                   </div>
                 </nav>
+            </div>
         {% endblock %}
     </head>
     <body>
         {% block body %}{% endblock %}
         {% block footer %} 
-        <div class = "footer">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class ="container">
+            <div class ="footer">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
                   <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
@@ -45,28 +49,21 @@
                         <a class="nav-link" href="{{ path('homepage') }}">Hlavní stránka</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="#">Produkty</a>
+                        <a class="nav-link" href="{{ path('showproducts', {'category': 1}) }}">Produkty</a>
                       </li>
-                      <form class="form-inline my-2 my-lg-0">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Vyhledávání" aria-label="Search">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Vyhledat</button>
-                      </form>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Košík</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Copyright</a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" href="#">Kontaktní info</a>
-                      </li>
-                       <li class="nav-item">
-                        <a class="nav-link" href="#">Obrázek</a>
-                      </li>
+                      <span class="navbar-text">
+                        &nbsp 777 888 999 &nbsp
+                      </span>
+                      <span class="navbar-text">
+                        &nbsp E-Mail &nbsp
+                      </span>
+                      <span class="navbar-text">
+                        &nbsp Copyright &nbsp
+                      </span>
                     </ul>
                   </div>
                 </nav>
-                
+            </div>
         </div>
         {%endblock%}
         {% block javascripts %}{% endblock %}

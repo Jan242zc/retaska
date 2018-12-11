@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Order;
+use App\Entity\Product;
 use App\Entity\Country;
 use App\Entity\Delivery;
 use App\Entity\Payment;
@@ -36,6 +37,7 @@ class OrderType extends AbstractType
             'class' => Payment::class,
             'choice_label' => 'name'
             ])
+            ->add('product')
         ;
     }
 

@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\Category;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
+use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +22,8 @@ class ProductController extends AbstractController
      */
     public function index(ProductRepository $productRepository): Response
     {
-        return $this->render('product/index.html.twig', ['products' => $productRepository->findAll()]);
+        return $this->render('product/index.html.twig',[
+        'products' => $productRepository->findAll()]);
     }
 
     /**

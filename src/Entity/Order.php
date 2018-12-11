@@ -3,7 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use App\Form\OrderType2;
+use App\Form\OrderType;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -34,10 +34,6 @@ class Order
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Email(
-     * message = "Zadejte platnou e-mailovou adresu.",
-     * checkMX = true
-     * )
      */
     private $email;
 
@@ -85,6 +81,11 @@ class Order
      * @ORM\Column(type="text", nullable=true)
      */
     private $note;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $Product;
 
     public function getId(): ?int
     {
@@ -219,6 +220,18 @@ class Order
     public function setNote(?string $note): self
     {
         $this->note = $note;
+
+        return $this;
+    }
+
+    public function getProduct(): ?int
+    {
+        return $this->Product;
+    }
+
+    public function setProduct(?int $Product): self
+    {
+        $this->Product = $Product;
 
         return $this;
     }

@@ -5,18 +5,26 @@
         <div class = "row">
             <div class = "col-12">
                 <h4>Seznam kategorií</h4> <br>
-                (Seznam kategorií)
+                    <table>
+                        <tr>
+                            {% for category in argumenty.categories %}
+                                <td>
+                                <a href="{{ path('showproducts', {'category': category.id}) }}">{{ category.name }} </a>&nbsp
+                                </td>    
+                            {% endfor %}
+                        </tr>
+                    </table>
                 <br>
             </div>
         </div>
         <div class = "row">
             <div class = "col-12">
-                <h4> Seznam produktů </h4>
+                <h4> Seznam produktů v kategorii </h4>
                 
             </div>
         </div>
         <div class = "row">
-            {% for product in products %}
+            {% for product in argumenty.products %}
                 <div class = "col-4">
                     <p>
                     <h6> {{ product.name }} </h6>

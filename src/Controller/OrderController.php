@@ -6,6 +6,7 @@ use App\Entity\Order;
 use App\Entity\Country;
 use App\Entity\Delivery;
 use App\Entity\Payment;
+use App\Entity\Product;
 use App\Form\OrderType;
 use App\Repository\OrderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
