@@ -1,10 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %} Administrace produktů {% endblock %}
 
 {% block body %}
 
-    <div class="container">
+
     <h1>Administrace produktů</h1>
 
     <table class="table">
@@ -43,5 +43,5 @@
 
     <a class="btn btn-primary" href="{{ path('product_new') }}">Vytvořit nový produkt</a>
     <a href="{{ path('admin') }}">Zpět do administrace</a>
-    </div>
+
 {% endblock %}

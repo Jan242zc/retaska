@@ -26,6 +26,11 @@ class Payment
      */
     private $price;
 
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $priceEUR;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class Payment
     public function setPrice(?float $price): self
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getPriceEUR(): ?float
+    {
+        return $this->priceEUR;
+    }
+
+    public function setPriceEUR(?float $priceEUR): self
+    {
+        $this->priceEUR = $priceEUR;
 
         return $this;
     }

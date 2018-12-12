@@ -5,13 +5,15 @@ namespace App\Controller;
 use App\Entity\Objednavka;
 use App\Form\ObjednavkaType;
 use App\Repository\ObjednavkaRepository;
+use App\Entity\Product;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/objednavka")
+ * @Route("/admin/objednavka")
  */
 class ObjednavkaController extends AbstractController
 {

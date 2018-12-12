@@ -1,22 +1,14 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Úvodní stránka administrace{% endblock %}</title>
-    </head>
-    <body>
-        <div class="container">   
-            <h2>Vítejte v administraci</h2>
-            
-            <p>Vyberte, co chcete spravovat:</p>
-            <a href="{{ path('product_index') }}"> Produkty </a> <br>
-            <a href="{{ path('category_index') }}"> Kategorie </a> <br>
-            <a href="{{ path('objednavka_index') }}"> Objednávky </a> <br>
+{% extends 'base_admin.html.twig' %}
+{% block title %}Úvodní stránka administrace{% endblock %}
+{% block body %}
+    <div class="container">   
     
-        </div>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    </body>
-</html>
+        <h2>Vítejte v administraci</h2>
+        
+        <p>Vyberte, co chcete spravovat:</p>
+        <a href="{{ path('product_index') }}"> Produkty </a> <br>
+        <a href="{{ path('category_index') }}"> Kategorie </a> <br>
+        <a href="{{ path('objednavka_index') }}"> Objednávky </a> <br>
+    
+    </div>
+{% endblock %}

@@ -11,12 +11,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class ObjednavkaType extends AbstractType
+class ObjednavkaEshopType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('product')
+            //->add('product')
             ->add('quantity')
             ->add('email')
             ->add('phone')
@@ -25,11 +25,11 @@ class ObjednavkaType extends AbstractType
             ->add('city')
             ->add('psc')
             ->add('note')
-            ->add('productPrice')
-            ->add('deliveryPrice')
-            ->add('paymentPriceCZK')
-            ->add('paymentPriceEUR')
-            ->add('totalPrice')            
+            //->add('productPrice')
+            //->add('deliveryPrice')
+            //->add('paymentPriceCZK')
+            //->add('paymentPriceEUR')
+            //->add('totalPrice')            
             ->add('country', EntityType::class, [
                 'class' => Country::class,
                 'choice_label' => 'name'            
@@ -42,7 +42,7 @@ class ObjednavkaType extends AbstractType
                 'class' => Payment::class,
                 'choice_label' => 'name'            
             ])
-            ->add('date')
+            //->add('date')
         ;
     }
 

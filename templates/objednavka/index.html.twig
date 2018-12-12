@@ -1,9 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
-{% block title %}Objednavka index{% endblock %}
+{% block title %}Administrace objednávek{% endblock %}
 
 {% block body %}
-    <h1>Objednavka index</h1>
+
+    <h1>Administrace objednávek</h1>
 
     <table class="table">
         <thead>
@@ -17,9 +18,11 @@
                 <th>Street</th>
                 <th>City</th>
                 <th>Psc</th>
+                <th>Country</th>
                 <th>Note</th>
                 <th>ProductPrice</th>
                 <th>DeliveryPrice</th>
+                <th>Payment</th>
                 <th>PaymentPriceCZK</th>
                 <th>PaymentPriceEUR</th>
                 <th>TotalPrice</th>
@@ -39,16 +42,18 @@
                 <td>{{ objednavka.street }}</td>
                 <td>{{ objednavka.city }}</td>
                 <td>{{ objednavka.psc }}</td>
+                <td>{{ objednavka.country.name }} </td>
                 <td>{{ objednavka.note }}</td>
                 <td>{{ objednavka.productPrice }}</td>
                 <td>{{ objednavka.deliveryPrice }}</td>
+                <td>{{ objednavka.payment.name }} </td>
                 <td>{{ objednavka.paymentPriceCZK }}</td>
                 <td>{{ objednavka.paymentPriceEUR }}</td>
                 <td>{{ objednavka.totalPrice }}</td>
                 <td>{{ objednavka.date ? objednavka.date|date('Y-m-d') : '' }}</td>
                 <td>
-                    <a href="{{ path('objednavka_show', {'id': objednavka.id}) }}">show</a>
-                    <a href="{{ path('objednavka_edit', {'id': objednavka.id}) }}">edit</a>
+                    <a class="btn btn-info" href="{{ path('objednavka_show', {'id': objednavka.id}) }}">Zobrazit detail</a>
+                    <a class="btn btn-warning" href="{{ path('objednavka_edit', {'id': objednavka.id}) }}">Upravit</a>
                 </td>
             </tr>
         {% else %}
@@ -59,5 +64,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('objednavka_new') }}">Create new</a>
+    <a class="btn btn-primary" href="{{ path('objednavka_new') }}">Vytvořit novou objednávku</a>
+    <a href="{{ path('admin') }}">Zpět do administrace</a>
+
 {% endblock %}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        {% form_theme form 'bootstrap_4_layout.html.twig' %}
+        <title>Objednávka tašky</title>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Vytvořte svoji objednávku</h2>
+            <h4>{{ varovani }} {{productStock}}</h4>
+            <h3>{{ productName }}</h3>
+            <p>Cena vámi nakupovaného produktu: {{ productPrice }} Kč </p>
+            
+            {{ form_start(form) }}
+                Množství:
+                {{ form_widget(form.quantity)}}
+                <h5> Osobní údaje </h5>
+                Jméno a příjmení:
+                {{ form_widget(form.customer)}}
+                Ulice a číslo domu:
+                {{ form_widget(form.street)}}
+                Město:
+                {{ form_widget(form.city)}}
+                PSČ:
+                {{ form_widget(form.psc)}}
+                Stát:
+                {{ form_widget(form.country)}}
+                E-mailová adresa:
+                {{ form_widget(form.email)}}
+                Telefonní číslo:
+                {{ form_widget(form.phone)}}
+                <h5> Dodací podmínky </h5>
+                Způsob dodání/převzetí:
+                {{ form_widget(form.delivery)}}
+                Způsob platby:
+                {{ form_widget(form.payment)}}
+                Poznámka:
+                {{ form_widget(form.note)}}
+                <button class="btn">{{ button_label|default('Objednat!') }}</button>
+            {{ form_end(form) }}
+            <a href="{{ path('showproducts', {category: 1}) }}">back to list</a>
+        </div>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    </body>
+</html>

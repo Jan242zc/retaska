@@ -1,9 +1,10 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %}Category index{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
+
+    <h1>Administrace kategorií</h1>
 
     <table class="table">
         <thead>
@@ -19,8 +20,8 @@
                 <td>{{ category.id }}</td>
                 <td>{{ category.name }}</td>
                 <td>
-                    <a href="{{ path('category_show', {'id': category.id}) }}">show</a>
-                    <a href="{{ path('category_edit', {'id': category.id}) }}">edit</a>
+                    <a class="btn btn-info" href="{{ path('category_show', {'id': category.id}) }}">Detail</a>
+                    <a class="btn btn-warning" href="{{ path('category_edit', {'id': category.id}) }}">Upravit</a>
                 </td>
             </tr>
         {% else %}
@@ -31,7 +32,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('category_new') }}">Create new</a>
-    <br>
+    <a class="btn btn-primary" href="{{ path('category_new') }}">Vytvořit novou kategorii</a>
     <a href="{{ path('admin') }}">Zpět do administrace</a>
+
 {% endblock %}

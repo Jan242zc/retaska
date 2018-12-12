@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}{% endblock %}</title>
+    </head>
+    <body>
+        {% block adminnavbar %} 
+            
+                <td>
+                    <a href="{{ path('product_index') }}"> Produkty </a> &nbsp | &nbsp
+                </td>
+                <td>
+                    <a href="{{ path('category_index') }}"> Kategorie </a> &nbsp | &nbsp
+                </td>
+                <td>
+                    <a href="{{ path('objednavka_index') }}"> Objednávky </a> &nbsp | &nbsp
+                </td>
+            
+        {% endblock %}
+        {% block body %} {% endblock %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    </body>
+</html>

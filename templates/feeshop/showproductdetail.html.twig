@@ -37,7 +37,7 @@
             <div class = "col-1">
             </div>
             <div class = "col-5">
-                <a class="btn btn-primary" href="{{ path('objednavka_new')}}" role="button">Objednat</a>
+                <a class="btn btn-primary" href="{{ path('objednavka_nova', {product: product.id})}}" role="button">Objednat</a>
             </div>
         </div>
     <a href="{{ path('showproducts', {category: product.category.id})}}">Zpět na výpis produktů v této kategorii</a>
