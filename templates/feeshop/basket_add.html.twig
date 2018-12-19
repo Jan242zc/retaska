@@ -6,12 +6,23 @@
 <div class="container">
     <h2>Přidat zboží do košíku</h2>
     <p>{{ varovani }}</p>
+    Celková cena: <span id ="totalPrice"> </span>
     <br>
         {{ form_start(form) }}
             Název produktu: {{product.name}} <br>
             Cena za kus: {{product.price}} <br>
-            Množství: {{ form_widget(form.quantity) }}
+            Množství: {{ form_widget(form.quantity) }} <br>
         {{ form_end(form) }}
     <a href="{{path('basket_delete', {product: product.id}) }}" class="btn btn-danger">Odstranit z košíku</a>
-</div> 
+</div>
+{% endblock %}
+{% block javascripts %}
+<script>
+$('#form_quantity').on('keyup', function(e){
+    var productPrice = '{{product.price}}';
+    var productQuantity = $('#form_quantity').val();
+    var totalPrice = parseInt(productPrice) * parseInt(productQuantity);
+    $('#totalPrice').text(totalPrice);
+})
+</script>
 {% endblock %}

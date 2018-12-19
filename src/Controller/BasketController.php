@@ -36,7 +36,7 @@ class BasketController extends AbstractController
         $session->start();
         $basket = $session->get('basket', []);
         
-        return $this->render('feeshop/basket_index.html.twig', ['basket' => $basket, 'prdlajs' => var_dump($basket)]);
+        return $this->render('feeshop/basket_index.html.twig', ['basket' => $basket]);
     } 
     
     /**
@@ -58,21 +58,26 @@ class BasketController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
             $quantity = $formData['quantity'];
-            if ($quantity <= $productStock) {
+            if (($quantity <= $productStock) && ($quantity > 0)) {
             $basket[$product->getID()] = [
-            'name' => $product->getName(), 'price' => $product->getPrice(), 
-            'quantity' => $quantity, 'id' => $product->getID()];
+            'id' => $product->getID(), 'name' => $product->getName(),
+            'quantity' => $quantity, 'price' => $product->getPrice()
+            ];
             $session->set('basket', $basket);
+            $upozorneni = 'Zboží bylo přidáno do košíku!';
             return $this->redirectToRoute('basket_index');
             } elseif ($quantity > $productStock) {
-                return $this->render('feeshop/basket_add.html.twig', [
+                $varovani = "Tolik kusů na skladě nemáme. Zvolte prosím nižší množství (max. $productStock).";              
+            } elseif ($quantity < 0) {
+                $varovani = "Vyberte smysluplný počet kusů.";
+            }
+            return $this->render('feeshop/basket_add.html.twig', [
                 'form' => $form->createView(),
                 'quantity' => $quantity ?? null,
                 'submittedData' => $formData ?? [],
                 'product' => $product,
-                'varovani' => "Tolik kusů na skladě nemáme. Zvolte prosím nižší množství (max. $productStock)."
+                'varovani' => $varovani
         ]);
-            }
         }
         
         return $this->render('feeshop/basket_add.html.twig', [

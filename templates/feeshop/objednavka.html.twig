@@ -1,58 +1,75 @@
 {% extends 'base.html.twig' %}
 
-
-
 {% block title %}Welcome!{% endblock %}
 {% block body %}   
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
-        <div class="container">
-            <h2>Vytvořte svoji objednávku</h2>
-            <h4>{{ varovani }} {{productStock}}</h4>
-            <h3>{{ productName }}</h3>
-            <p>Cena produktu: &nbsp<span id="productPrice">{{ productPrice }}</span></p>
-            <div> Cena dopravy &nbsp
-            <span id="delivery"> </span>
+        <div class="container" >
+            <div class="row">
+                <div class="col-9">
+                    <h2>Dokončete svoji objednávku</h2>
+                    <h4></h4>
+                    <h3></h3>
+                    <p><b>Cena nakupovaného zboží: <span id="productsPrice">{{ productPrice }}</span> Kč</b></p>
+                    <div> Cena dopravy: &nbsp
+                    <span id="delivery"> </span>
+                    
+                    </div>
+                    <div> Cena platby: &nbsp
+                    <span id="payment"> </span>
+                    
+                    </div>
+                    <div>Celková cena: &nbsp
+                    <span id="totalPrice"> </span>
+                    </div>
+                    {{ form_start(form) }}
+                        <h5> Osobní údaje </h5>
+                        Jméno a příjmení:
+                        {{ form_widget(form.customer)}}
+                        Ulice a číslo domu:
+                        {{ form_widget(form.street)}}
+                        Město:
+                        {{ form_widget(form.city)}}
+                        PSČ:
+                        {{ form_widget(form.psc)}}
+                        Stát:
+                        {{ form_widget(form.country)}}
+                        E-mailová adresa:
+                        {{ form_widget(form.email)}}
+                        Telefonní číslo:
+                        {{ form_widget(form.phone)}}
+                        <h5> Dodací podmínky </h5>
+                        Způsob dodání/převzetí:
+                        {{ form_widget(form.delivery)}}
+                        Způsob platby:
+                        {{ form_widget(form.payment)}}
+                        Poznámka:
+                        {{ form_widget(form.note)}}
+                        <button class="btn">{{ button_label|default('Objednat!') }}</button>
+                    {{ form_end(form) }}
+                    <a href="{{ path('showproducts', {category: 1}) }}">back to list</a>
+                </div>
+                <div class="col-3">
+                <h2>Rekapitulace nákupu</h2>
+                {% for array in goodsForTwig %}
+                    <div>
+                        Název produktu: {{ array.name}} <br>
+                        Množství: {{ array.quantity}} <br>
+                        Cena za kus: {{ array.price}} Kč <br>
+                        Celková cena: {{ array.quantity * array.price }} Kč <br>
+                        <hr>
+                    </div>
+                {% endfor %}
+                <div>
+                <a href="{{ path('basket_index') }}">Zpět do košíku</a>
+                </div>
+                </div>
             </div>
-            <div> Cena platby &nbsp
-            <span id="payment"> </span>
-            </div>
-            <div>Celková cena 
-            <span id="totalPrice"> </span>
-            </div>
-            {{ form_start(form) }}
-                {# Množství:
-                {{ form_widget(form.quantity)}} #}
-                <h5> Osobní údaje </h5>
-                Jméno a příjmení:
-                {{ form_widget(form.customer)}}
-                Ulice a číslo domu:
-                {{ form_widget(form.street)}}
-                Město:
-                {{ form_widget(form.city)}}
-                PSČ:
-                {{ form_widget(form.psc)}}
-                Stát:
-                {{ form_widget(form.country)}}
-                E-mailová adresa:
-                {{ form_widget(form.email)}}
-                Telefonní číslo:
-                {{ form_widget(form.phone)}}
-                <h5> Dodací podmínky </h5>
-                Způsob dodání/převzetí:
-                {{ form_widget(form.delivery)}}
-                Způsob platby:
-                {{ form_widget(form.payment)}}
-                Poznámka:
-                {{ form_widget(form.note)}}
-                <button class="btn">{{ button_label|default('Objednat!') }}</button>
-            {{ form_end(form) }}
-            <a href="{{ path('showproducts', {category: 1}) }}">back to list</a>
         </div>
         {% endblock %}
     
         {% block javascripts %}
         <script>
-        deliveryPrice = 
+        {#deliveryPrice = 
         $('#objednavka_eshop_quantity').on('keyup', function(e){
     
             var productPrice = $('#productPrice').text();
@@ -61,19 +78,32 @@
             console.log(quantity);
             var totalPrice = productPrice * quantity + deliveryPrice;
             $('#totalPrice').text(totalPrice);
-        })
+        })#}
+        
+        
         
         $('#objednavka_eshop_delivery').on('click', function(e){
             deliveryPrice = $('#objednavka_eshop_delivery option:selected').attr('data-price');
             $('#delivery').text(deliveryPrice);          
-            
             })
         
         $('#objednavka_eshop_payment').on('click', function(e){
             paymentPrice = $('#objednavka_eshop_payment option:selected').attr('data-price');
             $('#payment').text(paymentPrice);          
-            
             })
+            
+        $('#objednavka_eshop_payment').on('click', function(e){
+            var deliveryPrice = $('#delivery').text();
+            console.log(deliveryPrice);
+            var paymentPrice = $('#payment').text();
+            console.log(paymentPrice);
+            var productsPrice = '{{ productPrice }}';
+            {#alert(productsPrice);#}
+            console.log(productsPrice);
+            var totalPrice = parseInt(deliveryPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
+            console.log(totalPrice);
+            $('#totalPrice').text(totalPrice);
+        })
             
         </script>        
         {% endblock %}

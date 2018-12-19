@@ -9,7 +9,7 @@
                         <tr>
                             {% for category in argumenty.categories %}
                                 <td>
-                                <a href="{{ path('showproducts', {'category': category.id}) }}">{{ category.name }} </a>&nbsp
+                                <a href="{{ path('showproducts', {'category': category.id}) }}" class="btn btn-dark btn-lg">{{ category.name }} </a>&nbsp
                                 </td>    
                             {% endfor %}
                         </tr>
@@ -29,7 +29,7 @@
                     <p>
                     <h6> {{ product.name }} </h6>
                     {{ product.price }} Kč <br>
-                    <a href="{{ path('showproducts_detail', {'id': product.id}) }}">Objednat</a>
+                    <a class="btn btn-info" href="{{ path('showproducts_detail', {'id': product.id}) }}">Zobrazit detail</a>
                     </p>
                 </div>
             {% endfor %}

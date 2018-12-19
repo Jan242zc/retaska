@@ -12,6 +12,7 @@
                 <th>Id</th>
                 <th>Product</th>
                 <th>Quantity</th>
+                <th>Goods</th>
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Customer</th>
@@ -36,6 +37,23 @@
                 <td>{{ objednavka.id }}</td>
                 <td>{{ objednavka.product }}</td>
                 <td>{{ objednavka.quantity }}</td>
+                <td>
+                {% set counter = 5 %}
+                {% for array in objednavka.goods %}
+                    {% for value in array %}
+                        {% if counter % 4 == 1 %}
+                            id: {{ value }},
+                        {% elseif counter % 4 == 2 %}
+                            název: {{ value }},
+                        {% elseif counter % 4 == 3 %}
+                            množství: {{ value }},
+                        {% elseif counter % 4 == 0 %}
+                            cena: {{ value }} <br>
+                        {% endif %}
+                        {% set counter = counter + 1 %}
+                    {% endfor %}
+                {% endfor %}
+                </td>
                 <td>{{ objednavka.email }}</td>
                 <td>{{ objednavka.phone }}</td>
                 <td>{{ objednavka.customer }}</td>

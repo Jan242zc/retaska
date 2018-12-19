@@ -112,6 +112,11 @@ class Objednavka
      */
     private $date;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $goods = [];
+
     public function getId(): ?int
     {
         return $this->id;
@@ -329,6 +334,18 @@ class Objednavka
     public function setDate(?\DateTimeInterface $date): self
     {
         $this->date = $date;
+
+        return $this;
+    }
+
+    public function getGoods(): ?array
+    {
+        return $this->goods;
+    }
+
+    public function setGoods(?array $goods): self
+    {
+        $this->goods = $goods;
 
         return $this;
     }
