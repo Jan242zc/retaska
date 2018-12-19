@@ -1,20 +1,27 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        {% form_theme form 'bootstrap_4_layout.html.twig' %}
-        <title>Objednávka tašky</title>
-    </head>
-    <body>
+{% extends 'base.html.twig' %}
+
+
+
+{% block title %}Welcome!{% endblock %}
+{% block body %}   
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
         <div class="container">
             <h2>Vytvořte svoji objednávku</h2>
             <h4>{{ varovani }} {{productStock}}</h4>
             <h3>{{ productName }}</h3>
-            <p>Cena vámi nakupovaného produktu: {{ productPrice }} Kč </p>
-            
+            <p>Cena produktu: &nbsp<span id="productPrice">{{ productPrice }}</span></p>
+            <div> Cena dopravy &nbsp
+            <span id="delivery"> </span>
+            </div>
+            <div> Cena platby &nbsp
+            <span id="payment"> </span>
+            </div>
+            <div>Celková cena 
+            <span id="totalPrice"> </span>
+            </div>
             {{ form_start(form) }}
-                Množství:
-                {{ form_widget(form.quantity)}}
+                {# Množství:
+                {{ form_widget(form.quantity)}} #}
                 <h5> Osobní údaje </h5>
                 Jméno a příjmení:
                 {{ form_widget(form.customer)}}
@@ -41,10 +48,32 @@
             {{ form_end(form) }}
             <a href="{{ path('showproducts', {category: 1}) }}">back to list</a>
         </div>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-    </body>
-</html>
+        {% endblock %}
+    
+        {% block javascripts %}
+        <script>
+        deliveryPrice = 
+        $('#objednavka_eshop_quantity').on('keyup', function(e){
+    
+            var productPrice = $('#productPrice').text();
+            var quantity = $('#objednavka_eshop_quantity').val();
+            console.log(productPrice);
+            console.log(quantity);
+            var totalPrice = productPrice * quantity + deliveryPrice;
+            $('#totalPrice').text(totalPrice);
+        })
+        
+        $('#objednavka_eshop_delivery').on('click', function(e){
+            deliveryPrice = $('#objednavka_eshop_delivery option:selected').attr('data-price');
+            $('#delivery').text(deliveryPrice);          
+            
+            })
+        
+        $('#objednavka_eshop_payment').on('click', function(e){
+            paymentPrice = $('#objednavka_eshop_payment option:selected').attr('data-price');
+            $('#payment').text(paymentPrice);          
+            
+            })
+            
+        </script>        
+        {% endblock %}

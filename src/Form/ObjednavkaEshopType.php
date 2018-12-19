@@ -17,7 +17,7 @@ class ObjednavkaEshopType extends AbstractType
     {
         $builder
             //->add('product')
-            ->add('quantity')
+            //->add('quantity')
             ->add('email')
             ->add('phone')
             ->add('customer')
@@ -36,11 +36,17 @@ class ObjednavkaEshopType extends AbstractType
             ])
             ->add('delivery', EntityType::class, [
                 'class' => Delivery::class,
-                'choice_label' => 'name'            
+                'choice_label' => 'name',
+                'choice_attr' => function($delivery) {
+                            return ['data-price' => $delivery->getPrice()];
+                        }
             ])
             ->add('payment', EntityType::class, [
                 'class' => Payment::class,
-                'choice_label' => 'name'            
+                'choice_label' => 'name',
+                'choice_attr' => function($payment) {
+                            return ['data-price' => $payment->getPrice()];
+                        }
             ])
             //->add('date')
         ;

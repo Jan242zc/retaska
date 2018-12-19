@@ -24,7 +24,7 @@ class ObjednavkaEshopController extends AbstractController
 {
     
     /**
-     * @Route("/objednavka/{product}", name="objednavka_nova", methods="GET|POST")
+     * @Route("/objednavka", name="objednavka_nova", methods="GET|POST")
      */
     public function new(Request $request, Product $product, DeliveryRepository $deliveryRepository, 
     PaymentRepository $paymentRepository, CountryRepository $countryRepository): Response
@@ -89,7 +89,8 @@ class ObjednavkaEshopController extends AbstractController
                 'productPrice' => $productPrice,
                 'varovani' => "Tolik tašek na skladě nemáme. Vyberte prosím menší množství - maximálně ",
                 'productName' => $productName,
-                'productStock' => $productStock
+                'productStock' => $productStock,
+                'productPrice' => $productPrice
         ]);
             
         }
@@ -103,7 +104,8 @@ class ObjednavkaEshopController extends AbstractController
             'productPrice' => $productPrice,
             'varovani' => "",
             'productName' => $productName,
-            'productStock' => ""
+            'productStock' => "",
+            'productPrice' => $productPrice
         ]);
     }
 }

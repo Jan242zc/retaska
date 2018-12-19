@@ -1,0 +1,24 @@
+{% extends 'base_eshop.html.twig' %}
+
+{% block title %}Košík{% endblock %}
+{% block body %}   
+<div class = "container">
+    <h2>Váš nákupní košík</h2>
+
+    <p>Zboží v košíku:</p>    
+    <div class="row">
+        
+        {% for product in basket %}
+            <div class="col-4">
+            <h6>{{ product.name }}</h6>
+            Cena za kus: {{ product.price }} <br>
+            Množství v košíku: {{ product.quantity }}<br>
+            <a href="{{ path('basket_add', { product: product.id }) }}">Změnit množství</a> <br>
+            <a href="{{ path('basket_delete', { product: product.id }) }}">Odstranit z košíku</a>
+            </div>
+        {% endfor %}
+        <br>    
+        {{ prdlajs }}
+        <a href="{{ path('objednavka_nova')}}">Dokončit objednávku</a> <br>
+</div>
+{% endblock %}

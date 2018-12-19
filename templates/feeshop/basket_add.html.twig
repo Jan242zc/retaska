@@ -1,0 +1,17 @@
+{% extends 'base_eshop.html.twig' %}
+
+{% block title %}Přidat zboží do košíku{% endblock %}
+{% block body %}   
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+<div class="container">
+    <h2>Přidat zboží do košíku</h2>
+    <p>{{ varovani }}</p>
+    <br>
+        {{ form_start(form) }}
+            Název produktu: {{product.name}} <br>
+            Cena za kus: {{product.price}} <br>
+            Množství: {{ form_widget(form.quantity) }}
+        {{ form_end(form) }}
+    <a href="{{path('basket_delete', {product: product.id}) }}" class="btn btn-danger">Odstranit z košíku</a>
+</div> 
+{% endblock %}
