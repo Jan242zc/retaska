@@ -18,8 +18,8 @@
             Cena za kus: {{ product.price }} Kč<br>
             Množství v košíku: {{ product.quantity }} <br>
             Celková cena: {{ product.price * product.quantity }} Kč<br>
-            <a class="btn btn-info" href="{{ path('basket_add', { product: product.id }) }}">Změnit množství</a> <br>
-            <a class="btn btn-danger" href="{{ path('basket_delete', { product: product.id }) }}">Odstranit z košíku</a>
+            <a class="btn btn-info btn-sm" href="{{ path('basket_add', { product: product.id }) }}">Změnit množství</a> <br>
+            <a class="btn btn-danger btn-sm" href="{{ path('basket_delete', { product: product.id }) }}">Odstranit z košíku</a>
             </div>
         {% endfor %}
         <br>    
@@ -28,8 +28,8 @@
 <hr>
 {% if basket == null %}
     {% else %}
-    <a class="btn btn-success" href="{{ path('objednavka_nova')}}">Dokončit objednávku</a> <br>
+    <a class="btn btn-success" href="{{ path('objednavka_nova')}}">Dokončit objednávku</a>
 {% endif %}
-<a href="{{ path('showproducts', { category: 1 })}}">Zpět na výpis produktů</a> <br>
+<a class="btn btn-info" href="{{ path('showproducts', { category: 1 })}}">Pokračovat v nakupování</a> <br>
 </div>
 {% endblock %}

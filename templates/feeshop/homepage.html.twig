@@ -14,7 +14,7 @@
             {% for product in products %}
                 <div class ="col-4">
                     <p>
-                    {{ product.name }} <br>
+                    <b>{{ product.name }}</b> <br>
                     {{ product.price }} Kč<br>
                     <a class="btn btn-primary" href="{{ path('showproducts_detail', {'id': product.id}) }}" role="button">Detail produktu</a>
                     </p>

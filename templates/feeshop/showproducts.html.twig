@@ -1,39 +1,38 @@
 {% extends 'base_eshop.html.twig' %}
 {% block body %} 
-    <div class = "container">
+    <div class ="container">
         <br>
-        <div class = "row">
-            <div class = "col-12">
-                <h4>Seznam kategorií</h4> <br>
-                    <table>
-                        <tr>
-                            {% for category in argumenty.categories %}
-                                <td>
-                                <a href="{{ path('showproducts', {'category': category.id}) }}" class="btn btn-dark btn-lg">{{ category.name }} </a>&nbsp
-                                </td>    
-                            {% endfor %}
-                        </tr>
-                    </table>
+        <div class ="row">
+            <div class ="col-3">
+                <h4>Seznam kategorií</h4>
                 <br>
-            </div>
-        </div>
-        <div class = "row">
-            <div class = "col-12">
-                <h4> Seznam produktů v kategorii </h4>
-                
-            </div>
-        </div>
-        <div class = "row">
-            {% for product in argumenty.products %}
-                <div class = "col-4">
-                    <p>
-                    <h6> {{ product.name }} </h6>
-                    {{ product.price }} Kč <br>
-                    <a class="btn btn-info" href="{{ path('showproducts_detail', {'id': product.id}) }}">Zobrazit detail</a>
-                    </p>
+                <div class ="row">
+                    <div class="col-3">
+                        {% for category in argumenty.categories %}
+                            <p>
+                            <a href="{{ path('showproducts', {'category': category.id}) }}" class="btn btn-dark btn-lg">{{ category.name }} </a>&nbsp
+                            </p>
+                        {% endfor %}
+                    </div>
+                    <br>
                 </div>
-            {% endfor %}
+            </div>
+            <div class ="col-9">
+            <h4>Seznam produktů v kategorii</h4>
+                <div class="row">
+                    {% for product in argumenty.products %}
+                        <div class="col-4">
+                            
+                            <p>
+                            <h6> {{ product.name }} </h6>
+                            Cena: {{ product.price }} Kč <br>
+                            <a class="btn btn-info" href="{{ path('showproducts_detail', {'id': product.id}) }}">Zobrazit detail</a>
+                            </p>
+                            
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-        <br> 
     </div>
 {% endblock %}
