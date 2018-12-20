@@ -16,7 +16,12 @@
                 <td>
                     <a href="{{ path('objednavka_index') }}"> Objednávky </a> &nbsp | &nbsp
                 </td>
-            
+                <td>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    Přihlášený uživatel: {{ app.user.username }} &nbsp|&nbsp
+                    <a href="{{ path('app_logout') }}">Odhlásit</a>
+                {% endif %}
+                </td>
         {% endblock %}
         {% block body %} {% endblock %}
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
