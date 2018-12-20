@@ -6,7 +6,7 @@
 <div class="container">
     <h2>Přidat zboží do košíku</h2>
     <p>{{ varovani }}</p>
-    Celková cena: <span id ="totalPrice"> </span>
+    <span id="totalPriceLabel"> Celková cena: </span> <span id ="totalPrice"> </span>
     <br>
         {{ form_start(form) }}
             Název produktu: {{product.name}} <br>
@@ -20,11 +20,13 @@
 {% endblock %}
 {% block javascripts %}
 <script>
+
 $('#form_quantity').on('keyup', function(e){
-    var productPrice = '{{product.price}}';
-    var productQuantity = $('#form_quantity').val();
-    var totalPrice = parseInt(productPrice) * parseInt(productQuantity);
-    $('#totalPrice').text(totalPrice);
+        var productPrice = '{{product.price}}';
+        var productQuantity = $('#form_quantity').val();
+        var totalPrice = parseInt(productPrice) * parseInt(productQuantity);
+        $('#totalPrice').text(totalPrice);
 })
+
 </script>
 {% endblock %}

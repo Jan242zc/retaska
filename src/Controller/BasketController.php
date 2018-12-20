@@ -68,7 +68,7 @@ class BasketController extends AbstractController
             return $this->redirectToRoute('basket_index');
             } elseif ($quantity > $productStock) {
                 $varovani = "Tolik kusů na skladě nemáme. Zvolte prosím nižší množství (max. $productStock).";              
-            } elseif ($quantity < 0) {
+            } elseif ($quantity <= 0) {
                 $varovani = "Vyberte smysluplný počet kusů.";
             }
             return $this->render('feeshop/basket_add.html.twig', [

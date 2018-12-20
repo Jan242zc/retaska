@@ -8,23 +8,21 @@
     {% if basket == null %}
         <p>Váš košík je prázdný.</p>
     {% else %}
-        <h4>Zboží v košíku:</h4>
+        <h4>Zboží v košíku:</h4> <hr>
     {% endif %}
     
     <div class="row">
         {% for product in basket %}
             <div class="col-4">
             <h5>{{ product.name }}</h6>
-            Cena za kus: {{ product.price }} Kč<br>
+            Cena za kus: {{ product.price }} Kč <br>
             Množství v košíku: {{ product.quantity }} <br>
             Celková cena: {{ product.price * product.quantity }} Kč<br>
             <a class="btn btn-info btn-sm" href="{{ path('basket_add', { product: product.id }) }}">Změnit množství</a> <br>
             <a class="btn btn-danger btn-sm" href="{{ path('basket_delete', { product: product.id }) }}">Odstranit z košíku</a>
             </div>
         {% endfor %}
-        <br>    
     </div>
-<br>
 <hr>
 {% if basket == null %}
     {% else %}

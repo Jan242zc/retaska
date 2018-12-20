@@ -1,26 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Welcome!{% endblock %}
+{% block title %}Objednání zboží{% endblock %}
 {% block body %}   
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
         <div class="container" >
             <div class="row">
                 <div class="col-9">
                     <h2>Dokončete svoji objednávku</h2>
-                    <h4></h4>
-                    <h3></h3>
-                    <p><b>Cena nakupovaného zboží: <span id="productsPrice">{{ productPrice }}</span> Kč</b></p>
+                    <div>Cena nakupovaného zboží: <span id="productsPrice">{{ productPrice }}</span> Kč</div>
                     <div> Cena dopravy: &nbsp
                     <span id="delivery"> </span>
-                    
                     </div>
                     <div> Cena platby: &nbsp
                     <span id="payment"> </span>
-                    
-                    </div>
-                    <div>Celková cena: &nbsp
-                    <span id="totalPrice"> </span>
-                    </div>
+                    </div><br>
+                    <div><b>Celková cena: &nbsp
+                    <span id="totalPrice"> </span></b>
+                    </div> <hr>
                     {{ form_start(form) }}
                         <h5> Osobní údaje </h5>
                         Jméno a příjmení:
@@ -37,6 +33,7 @@
                         {{ form_widget(form.email)}}
                         Telefonní číslo:
                         {{ form_widget(form.phone)}}
+                        <hr>
                         <h5> Dodací podmínky </h5>
                         Způsob dodání/převzetí:
                         {{ form_widget(form.delivery)}}
@@ -60,7 +57,7 @@
                     </div>
                 {% endfor %}
                 <div>
-                <a href="{{ path('basket_index') }}">Zpět do košíku</a>
+                <a href="{{ path('basket_index') }}" class="btn btn-info">Zpět do košíku</a>
                 </div>
                 </div>
             </div>
@@ -68,20 +65,34 @@
         {% endblock %}
     
         {% block javascripts %}
-        <script>
-        {#deliveryPrice = 
-        $('#objednavka_eshop_quantity').on('keyup', function(e){
-    
-            var productPrice = $('#productPrice').text();
-            var quantity = $('#objednavka_eshop_quantity').val();
-            console.log(productPrice);
-            console.log(quantity);
-            var totalPrice = productPrice * quantity + deliveryPrice;
+        <script>        
+        
+        $(document).ready(function(){
+            var deliveryPrice = $('#delivery').text();
+            var paymentPrice = $('#payment').text();
+            var productsPrice = '{{ productPrice }}';
+            var totalPrice = parseInt(deliveryPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
             $('#totalPrice').text(totalPrice);
-        })#}
+        })
         
+        $('#objednavka_eshop_payment, #objednavka_eshop_delivery').on('click', function(e){
+            var deliveryPrice = $('#delivery').text();
+            var paymentPrice = $('#payment').text();
+            var productsPrice = '{{ productPrice }}';
+            var totalPrice = parseInt(deliveryPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
+            $('#totalPrice').text(totalPrice);
+        })
         
+        $(document).ready(function(e){        
+            deliveryPrice = $('#objednavka_eshop_delivery option:selected').attr('data-price');
+            $('#delivery').text(deliveryPrice);          
+            })
         
+        $(document).ready(function(e){
+            paymentPrice = $('#objednavka_eshop_payment option:selected').attr('data-price');
+            $('#payment').text(paymentPrice);          
+            })
+               
         $('#objednavka_eshop_delivery').on('click', function(e){
             deliveryPrice = $('#objednavka_eshop_delivery option:selected').attr('data-price');
             $('#delivery').text(deliveryPrice);          
@@ -91,19 +102,6 @@
             paymentPrice = $('#objednavka_eshop_payment option:selected').attr('data-price');
             $('#payment').text(paymentPrice);          
             })
-            
-        $('#objednavka_eshop_payment').on('click', function(e){
-            var deliveryPrice = $('#delivery').text();
-            console.log(deliveryPrice);
-            var paymentPrice = $('#payment').text();
-            console.log(paymentPrice);
-            var productsPrice = '{{ productPrice }}';
-            {#alert(productsPrice);#}
-            console.log(productsPrice);
-            var totalPrice = parseInt(deliveryPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
-            console.log(totalPrice);
-            $('#totalPrice').text(totalPrice);
-        })
-            
+        
         </script>        
         {% endblock %}

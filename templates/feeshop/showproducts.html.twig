@@ -22,13 +22,11 @@
                 <div class="row">
                     {% for product in argumenty.products %}
                         <div class="col-4">
-                            
                             <p>
                             <h6> {{ product.name }} </h6>
                             Cena: {{ product.price }} Kč <br>
                             <a class="btn btn-info" href="{{ path('showproducts_detail', {'id': product.id}) }}">Zobrazit detail</a>
                             </p>
-                            
                         </div>
                     {% endfor %}
                 </div>

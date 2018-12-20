@@ -172,7 +172,7 @@ class ObjednavkaEshopController extends AbstractController
             'objednavka' => $objednavka,
             'form' => $form->createView(),
             'goods' => $goods,
-            'stock' => var_dump($stockOfProducts),
+            //'stock' => var_dump($stockOfProducts),
             'goodsForTwig' => $goodsForTwig,
             'productPrice' => $goodsTotalPrice,
             //'varovani' => "",
