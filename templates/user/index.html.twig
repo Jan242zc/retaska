@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
 {% block title %}User index{% endblock %}
 
@@ -25,8 +25,8 @@
                 {% endfor %}
                 <td>{{ user.password }}</td>
                 <td>
-                    <a href="{{ path('user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('user_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('user_show', {'id': user.id}) }}" class="btn btn-info">Detail</a>
+                    <a href="{{ path('user_edit', {'id': user.id}) }}" class="btn btn-warning">Upravit</a>
                 </td>
             </tr>
         {% else %}
@@ -37,5 +37,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('user_new') }}">Create new</a>
+    <a href="{{ path('user_new') }}" class="btn btn-primary">Vytvořit nový účet</a>
+    
+    <a href="{{ path('admin') }}" class="btn btn-secondary">Zpět do administrace</a>
 {% endblock %}

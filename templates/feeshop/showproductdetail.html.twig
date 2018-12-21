@@ -40,7 +40,7 @@
                 <a class="btn btn-primary" href="{{ path('basket_add', {product: product.id})}}" role="button">Přidat do košíku</a>
             </div>
         </div>
-    <a href="{{ path('showproducts', {category: product.category.id})}}">Zpět na výpis produktů v této kategorii</a>
+    <a href="{{ path('showproducts', {category: product.category.id})}}"" class="btn btn-secondary">Zpět na výpis produktů v této kategorii</a>
     </div>
     <br>
 {% endblock %}

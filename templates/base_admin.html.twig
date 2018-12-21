@@ -17,10 +17,16 @@
                     <a href="{{ path('objednavka_index') }}"> Objednávky </a> &nbsp | &nbsp
                 </td>
                 <td>
+                    <a href="{{ path('user_index') }}"> Uživatelské účty </a> &nbsp | &nbsp
+                </td>
+                <td>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     Přihlášený uživatel: {{ app.user.username }} &nbsp|&nbsp
-                    <a href="{{ path('app_logout') }}">Odhlásit</a>
+                    <a href="{{ path('app_logout') }}">Odhlásit</a>  &nbsp | &nbsp
                 {% endif %}
+                </td>
+                <td>
+                    <a href="{{ path('homepage') }}" class="btn btn-primary btn-sm">Zobrazit frontend</a>
                 </td>
         {% endblock %}
         {% block body %} {% endblock %}
