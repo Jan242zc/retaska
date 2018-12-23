@@ -18,13 +18,25 @@ use Symfony\Component\Routing\Annotation\Route;
 class ShowProductsController extends AbstractController
 {
     /**
-     * @Route("/showbycategory/{category}", name="showproducts", methods="GET|POST")
+     * @Route("/showproducts", name="showproducts", methods="GET|POST")
      */
-    public function showProducts(Category $category, CategoryRepository $categoryRepository): Response
+    public function showProducts(ProductRepository $productRepository, CategoryRepository $categoryRepository): Response
     {
         return $this->render('feeshop/showproducts.html.twig', ['argumenty' => [
-        'products' => $category->getProducts(),
+        'products' => $productRepository->findAll(),
         'categories' => $categoryRepository->findAll()
+        ]]);
+    }
+    
+    /**
+     * @Route("/showbycategory/{category}", name="showproducts_category", methods="GET|POST")
+     */
+    public function showByCategory(Category $category, CategoryRepository $categoryRepository): Response
+    {
+        return $this->render('feeshop/showbycategory.html.twig', ['argumenty' => [
+        'products' => $category->getProducts(),
+        'categories' => $categoryRepository->findAll(),
+        'categoryName' => $category->getName()
         ]]);
     }
     /**

@@ -8,6 +8,9 @@
                 <br>
                 <div class ="row">
                     <div class="col-3">
+                        <p>
+                        <a href="{{ path('showproducts') }}" class="btn btn-dark btn-lg">Zobrazit vše </a>&nbsp
+                        </p>
                         {% for category in argumenty.categories %}
                             <p>
                             <a href="{{ path('showproducts_category', {'category': category.id}) }}" class="btn btn-dark btn-lg">{{ category.name }} </a>&nbsp
@@ -18,13 +21,12 @@
                 </div>
             </div>
             <div class ="col-9">
-            <h4>Seznam všech produktů</h4>
+            <h4>{{ argumenty.categoryName }}</h4>
                 <div class="row">
                     {% for product in argumenty.products %}
                         <div class="col-4">
                             <p>
                             <h6> {{ product.name }} </h6>
-                            Kategorie: {{ product.category.name }}<br>
                             Cena: {{ product.price }} Kč <br>
                             <a class="btn btn-info" href="{{ path('showproducts_detail', {'id': product.id}) }}">Zobrazit detail</a>
                             </p>
@@ -34,5 +36,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}
