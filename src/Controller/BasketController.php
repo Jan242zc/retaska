@@ -58,7 +58,7 @@ class BasketController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $formData = $form->getData();
             $quantity = $formData['quantity'];
-            //if (($quantity <= $productStock) && ($quantity > 0)) {
+            if (($quantity <= $productStock) && ($quantity > 0)) {
             $basket[$product->getID()] = [
             'id' => $product->getID(), 'name' => $product->getName(),
             'quantity' => $quantity, 'price' => $product->getPrice()
@@ -66,7 +66,7 @@ class BasketController extends AbstractController
             $session->set('basket', $basket);
             $upozorneni = 'Zboží bylo přidáno do košíku!';
             return $this->redirectToRoute('basket_index');
-            }/* elseif ($quantity > $productStock) {
+            } elseif ($quantity > $productStock) {
                 $varovani = "Tolik kusů na skladě nemáme. Zvolte prosím nižší množství (max. $productStock).";              
             } elseif ($quantity <= 0) {
                 $varovani = "Vyberte smysluplný počet kusů.";
@@ -77,8 +77,9 @@ class BasketController extends AbstractController
                 'submittedData' => $formData ?? [],
                 'product' => $product,
                 'varovani' => $varovani
-        ]);*/
-        
+        ]);
+    }
+
         
         return $this->render('feeshop/basket_add.html.twig', [
             'form' => $form->createView(),
