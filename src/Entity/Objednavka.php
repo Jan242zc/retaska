@@ -6,6 +6,7 @@ use App\Entity\Payment;
 use App\Entity\Country;
 use App\Entity\Delivery;
 use App\Entity\Category;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 
@@ -116,6 +117,16 @@ class Objednavka
      * @ORM\Column(type="array", nullable=true)
      */
     private $goods = [];
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ShoppingBag", mappedBy="objednavka")
+     */
+    private $ShoppingBag;
+
+    public function __construct()
+    {
+        $this->ShoppingBag = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -346,6 +357,37 @@ class Objednavka
     public function setGoods(?array $goods): self
     {
         $this->goods = $goods;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ShoppingBag[]
+     */
+    public function getShoppingBag(): Collection
+    {
+        return $this->ShoppingBag;
+    }
+
+    public function addShoppingBag(ShoppingBag $shoppingBag): self
+    {
+        if (!$this->ShoppingBag->contains($shoppingBag)) {
+            $this->ShoppingBag[] = $shoppingBag;
+            $shoppingBag->setObjednavka($this);
+        }
+
+        return $this;
+    }
+
+    public function removeShoppingBag(ShoppingBag $shoppingBag): self
+    {
+        if ($this->ShoppingBag->contains($shoppingBag)) {
+            $this->ShoppingBag->removeElement($shoppingBag);
+            // set the owning side to null (unless already changed)
+            if ($shoppingBag->getObjednavka() === $this) {
+                $shoppingBag->setObjednavka(null);
+            }
+        }
 
         return $this;
     }

@@ -12,6 +12,7 @@ use App\Entity\Payment;
 use App\Repository\PaymentRepository;
 use App\Entity\Country;
 use App\Repository\CountryRepository;
+use App\Entity\ShoppingBag;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,26 +39,19 @@ class ObjednavkaEshopController extends AbstractController
         $form->handleRequest($request);
         
         //NALOŽENÍ KOŠÍKU DO OBJEDNÁVKY
-        $goods= [];
+        $shoppingBag = []; //pole pro položky v košíku
         
-        foreach ($basket as $polozka => $parametry){
-            foreach ($parametry as $parametr => $hodnota) {
-                if ($parametr === 'id') {
-                    $goods[$polozka][$parametr] = $hodnota;
-                    }
-                if ($parametr === 'name') {
-                    $goods[$polozka][$parametr] = $hodnota;
-                    }
-                if ($parametr === 'quantity') {
-                    $goods[$polozka][$parametr] = $hodnota;
-                    }
-                if ($parametr === 'price') {
-                    $goods[$polozka][$parametr] = $hodnota;
-                    }
-                }
-            }
+        //"NALOŽENÍ" ZBOŽÍ DO NÁKUPNÍ TAŠKY, TJ. DO SAMOSTANÉ ENTITY NAVÁZANÉ NA OBJEDNÁVKU
+        foreach($basket as $polozka) { //cyklus, samozřejmě, aby to šlo udělat pro jakékoli množství nakupovaných produktů
+            $shoppingBag[] = new ShoppingBag( //vytvoří se nový řádek databáze a přes konstruktor se nastaví požadované parametry
+            $polozka['id'],
+            $polozka['name'],
+            $polozka['quantity'],
+            $polozka['price']
+            );
+        }
         
-        //ÚPRAVA KOŠÍKU PRO VYKRESLENÍ V ŠABLONĚ
+        //VYTVOŘENÍ ZVLÁŠTNÍ PROMĚNNÉ PRO VYKRESLENÍ KOŠÍKU V ŠABLONĚ OBJEDNÁVKOVÉHO FORMULÁŘE
         $goodsForTwig = [];
         foreach ($basket as $polozka => $parametry) {
             foreach($parametry as $parametr => $hodnota) {
@@ -73,47 +67,44 @@ class ObjednavkaEshopController extends AbstractController
                 }
             }
         
-        
         //ZJIŠTĚNÍ CENY ZA NAKUPOVANÉ ZBOŽÍ DOHROMADY
         $goodsXQuantity = 0;
         $goodsXPrice = 0;
         $goodsTotalPrice = 0;
-        
-        $goodsKeys = (array_keys($goods));
-        foreach ($goodsKeys as $key) {
-            $goodsXQuantity = $goods[$key]['quantity'];
-            $goodsXPrice = $goods[$key]['price'];
+        foreach($basket as $polozka) {
+            $goodsXQuantity = $polozka['quantity'];
+            $goodsXPrice = $polozka['price'];
             $goodsTotalPrice = $goodsTotalPrice + ($goodsXQuantity * $goodsXPrice);
         }
         
-        //ZÍSKÁNÍ OBJEKTŮ NAKUPOVANÝCH PRODUKTŮ, ABY BYLO MOŽNÉ OVĚŘIT A UPRAVIT JEJICH MNOŽSTVÍ NA SKLADĚ
-        $arrayOfProducts = [];
-        $stockOfProducts = [];
-        $numberOfProducts = count($goods);
-        for ($i = 0; $i < $numberOfProducts; $i++) {
-            $arrayOfProducts[$i] = $productRepository->find($goodsKeys[$i]);
-        }
-        
-        $i = 0;
-        
-        foreach ($arrayOfProducts as $product) {
-            $productXStock = $product->getStock();
-            $stockOfProducts[$i] = $productXStock;
-            $i++;
-        }
-        
+        //PROMĚNNÁ PRO OVĚŘENÍ MNOŽSTVÍ ZBOŽÍ PŘI DOKONČOVÁNÍ OBJEDNÁVKY
         $enoughStock = false;
+        foreach($basket as $polozka){
+            $product = $productRepository->find($polozka['id']); //načtení objektu produktu, aby šlo zjistit jeho množství
+            if ($polozka['quantity'] <= $product->getStock()){      //samotné ověření
+                $enoughStock = true;
+            } else {
+                $enoughStock = false;
+                break;                                              //když je jednoho málo, cyklus se zastaví a proměnná je falsa
+            }
+        }
+        
+        //VAROVÁNÍ O PŘÍLIŠ VYSOKÉM POČTU ZBOŽÍ PRO OBJEDNÁVKOVÝ FORMULÁŘ
+        if ($enoughStock){
+            $varovani = '';
+        } else {
+            $varovani = "Vybrali jste příliš vysoký počet kusů. Vraťte se prosím do košíku a upravte množství.";
+        }
                 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $objednavka->setGoods($goods);
+            if ($enoughStock === true) {                            //pokud je na skladě dost tašek...
+            //NASTAVENÍ CENY PRODUKTU A CELKOVÉ CENY TAŠEK
+            $numberOfGoods = count($basket);
+            for ($i=0; $i < $numberOfGoods; $i++){                  //cyklus pro nasetování kupovaných produktů v entitě objednávky
+                $objednavka->addShoppingBag($shoppingBag[$i]);
+            }
             $objednavka->setProductPrice($goodsTotalPrice);
-            //$objednavkaQuantity = $objednavka->getQuantity();
-            /*if ($productStock >= $objednavkaQuantity) {
-            //NASTAVENÍ CENY PRODUKTU
-            $productID = $product->getID();           
-            $objednavka->setProduct($productID);         
-            $objednavka->setProductPrice($productPrice);*/
             //NASTAVENÍ CENY DODÁNÍ
             $deliveryID = $objednavka->getDelivery();               //zjištění ID dodávky
             $delivery = $deliveryRepository->find($deliveryID);     //dodání objektu dodávky, aby se dala zjistit cena
@@ -146,23 +137,29 @@ class ObjednavkaEshopController extends AbstractController
             //$date = getDate();                    
             //$objednavka->setDate($date);          
             //NASTAVENÍ POČTU ZBOŽÍ NA SKLADĚ
-            //$productNewStock = $productStock - $objednavkaQuantity; 
-            //$product->setStock($productNewStock);                   
-            
+            foreach ($basket as $polozka){      //přes pole košíku, pracuje se mi s ním líp než s polem objektů ($shoppingBag)
+                $product = $productRepository->find($polozka['id']); //načtení objektu, aby se dalo upravit množství
+                $productOldStock = $product->getStock();    //zjištění počtu na skladě před prodejem
+                $productSold = $polozka['quantity'];    //prodané kusy
+                $productNewStock = $productOldStock - $productSold; //zjištění nového počtu po vyskladnění
+                $product->setStock($productNewStock); //nastavení nového počtu
+            }
+            foreach ($shoppingBag as $bag){ //příprava objektů v $shoppingBagu pro uložení
+                $em->persist($bag);
+            }
             $em->persist($objednavka);
             $em->flush();
-        /*} else { //pro případ, že na skladě není dost tašek
+        } else { //pro případ, že na skladě není dost tašek
             return $this->render('feeshop/objednavka.html.twig', [
                 'objednavka' => $objednavka,
                 'form' => $form->createView(),
-                'productPrice' => $productPrice,
-                'varovani' => "Tolik tašek na skladě nemáme. Vyberte prosím menší množství - maximálně ",
-                'productName' => $productName,
-                'productStock' => $productStock,
-                'productPrice' => $productPrice
+                'productPrice' => $goodsTotalPrice,
+                'goodsForTwig' => $goodsForTwig,
+                'varovani' => $varovani,
+                'enoughStock' => var_dump($enoughStock)
         ]);
             
-        }*/
+        }
            //po úspěšném odeslání objednávky
            $session->clear();
            return $this->redirectToRoute('thanks');
@@ -171,14 +168,10 @@ class ObjednavkaEshopController extends AbstractController
         return $this->render('feeshop/objednavka.html.twig', [
             'objednavka' => $objednavka,
             'form' => $form->createView(),
-            'goods' => $goods,
-            //'stock' => var_dump($stockOfProducts),
             'goodsForTwig' => $goodsForTwig,
             'productPrice' => $goodsTotalPrice,
-            //'varovani' => "",
-            //'productName' => $productName,
-            //'productStock' => "",
-            //'productPrice' => $productPrice
+            'varovani' => "",
+            'enoughStock' => var_dump($enoughStock)
         ]);
     }
 }

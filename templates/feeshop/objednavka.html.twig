@@ -7,7 +7,8 @@
             <div class="row">
                 <div class="col-8">
                     <h2>Dokončete svoji objednávku</h2>
-                    
+                    <br> <b>{{ varovani }}</b> <br>
+                    {{ enoughStock }}
                     {{ form_start(form) }}
                         <h5> Osobní údaje </h5>
                         Jméno a příjmení:
@@ -70,7 +71,7 @@
         {% block javascripts %}
         <script>        
         
-        $(document).ready(function(){
+       $(document).ready(function(){
             var deliveryPrice = $('#delivery').text();
             var paymentPrice = $('#payment').text();
             var productsPrice = '{{ productPrice }}';
