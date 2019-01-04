@@ -1,4 +1,5 @@
 {% extends 'base_eshop.html.twig' %}
+{% block title %}Produkty{% endblock %}
 {% block body %} 
     <div class ="container">
         <br>
@@ -6,6 +7,7 @@
             <div class ="col-3">
                 <h4>Seznam kategorií</h4>
                 <br>
+               {# {{ search }}<br> #}
                 <div class ="row">
                     <div class="col-3">
                         {% for category in argumenty.categories %}

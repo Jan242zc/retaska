@@ -22,6 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 /**
  * @Route("/eshop/basket")
@@ -31,12 +32,31 @@ class BasketController extends AbstractController
     /**
      * @Route("/", name="basket_index")
      */
-    public function index(SessionInterface $session): Response
+    public function index(SessionInterface $session, Request $request): Response
     {
         $session->start();
         $basket = $session->get('basket', []);
         
-        return $this->render('feeshop/basket_index.html.twig', ['basket' => $basket, 'vypis' => var_dump($basket)]);
+        //VYHLEDÁVACÍ FORMULÁŘ
+        $search = $session->get('search', '');
+        $searchForm = $this->createFormBuilder()
+            ->add('search', TextType::class)
+            ->add('save', SubmitType::class, ['label' => 'Vyhledat'])
+            ->getForm();
+        
+        $searchForm->handleRequest($request);
+        
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $formData = $searchForm->getData();
+            $search = $formData['search'];
+            $session->set('search', $search);
+            
+            return $this->redirectToRoute('search');
+        }
+        //KONEC VYHLEDÁVACÍHO FORMULÁŘE
+        
+        return $this->render('feeshop/basket_index.html.twig', ['basket' => $basket, 
+        'searchForm' => $searchForm->createView()]);
     } 
     
     /**
@@ -45,6 +65,24 @@ class BasketController extends AbstractController
     public function add(Request $request, SessionInterface $session, 
     Product $product, ProductRepository $productRepository): Response
     {
+        //VYHLEDÁVACÍ FORMULÁŘ
+        $search = $session->get('search', '');
+        $searchForm = $this->createFormBuilder()
+            ->add('search', TextType::class)
+            ->add('save', SubmitType::class, ['label' => 'Vyhledat'])
+            ->getForm();
+        
+        $searchForm->handleRequest($request);
+        
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $formData = $searchForm->getData();
+            $search = $formData['search'];
+            $session->set('search', $search);
+            
+            return $this->redirectToRoute('search');
+        }
+        //KONEC VYHLEDÁVACÍHO FORMULÁŘE
+        
         $basket = $session->get('basket', []);
         $quantity = 0;
         $productStock = $product->getStock();
@@ -76,7 +114,8 @@ class BasketController extends AbstractController
                 'quantity' => $quantity ?? null,
                 'submittedData' => $formData ?? [],
                 'product' => $product,
-                'varovani' => $varovani
+                'varovani' => $varovani,
+                'searchForm' => $searchForm->createView()
         ]);
     }
 
@@ -86,7 +125,8 @@ class BasketController extends AbstractController
             'quantity' => $quantity ?? null,
             'submittedData' => $formData ?? [],
             'product' => $product,
-            'varovani' => ""            
+            'varovani' => "",
+            'searchForm' => $searchForm->createView()
         ]);
     }
     

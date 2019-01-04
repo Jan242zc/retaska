@@ -1,0 +1,26 @@
+{% extends 'base_eshop.html.twig' %}
+{% block title %} Výsledky vyhledávání {% endblock %}
+{% block body %} 
+<div class="container">
+
+    <h2>Výsledky vyhledávání</h2>
+    
+    {% if results == null %}
+        <p> Na vámi hledaný výraz nebylo nich nalezeno. </p>
+        <a class="btn btn-info" href="{{ path('showproducts')}}">Přejít na výpis všech produktů</a> <br>
+    {% endif %}
+    <div class="row">
+        {% for product in results %}
+            <div class="col-4">
+                <p>
+                <h6> {{ product.name }} </h6>
+                Kategorie: {{ product.category.name }}<br>
+                Cena: {{ product.price }} Kč <br>
+                <a class="btn btn-info" href="{{ path('showproducts_detail', {'id': product.id}) }}">Zobrazit detail</a>
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+   
+</div>
+{% endblock %}
