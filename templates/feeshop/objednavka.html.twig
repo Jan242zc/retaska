@@ -71,41 +71,41 @@
         {% block javascripts %}
         <script>        
         
-       $(document).ready(function(){
-            var deliveryPrice = $('#delivery').text();
-            var paymentPrice = $('#payment').text();
-            var productsPrice = '{{ productPrice }}';
-            var totalPrice = parseInt(deliveryPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
-            $('#totalPrice').text(totalPrice);
-        })
-        
-        $('#objednavka_eshop_payment, #objednavka_eshop_delivery').on('click', function(e){
-            var deliveryPrice = $('#delivery').text();
-            var paymentPrice = $('#payment').text();
-            var productsPrice = '{{ productPrice }}';
-            var totalPrice = parseInt(deliveryPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
-            $('#totalPrice').text(totalPrice);
-        })
-        
-        $(document).ready(function(e){        
-            deliveryPrice = $('#objednavka_eshop_delivery option:selected').attr('data-price');
-            $('#delivery').text(deliveryPrice);          
+           $(document).ready(function(){
+                var deliveryPrice = $('#delivery').text();
+                var paymentPrice = $('#payment').text();
+                var productsPrice = '{{ productPrice }}';
+                var totalPrice = parseInt(deliveryPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
+                $('#totalPrice').text(totalPrice);
             })
-        
-        $(document).ready(function(e){
-            paymentPrice = $('#objednavka_eshop_payment option:selected').attr('data-price');
-            $('#payment').text(paymentPrice);          
+            
+            $('#objednavka_eshop_payment, #objednavka_eshop_delivery').on('click', function(e){
+                var deliveryPrice = $('#delivery').text();
+                var paymentPrice = $('#payment').text();
+                var productsPrice = '{{ productPrice }}';
+                var totalPrice = parseInt(deliveryPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
+                $('#totalPrice').text(totalPrice);
             })
-               
-        $('#objednavka_eshop_delivery').on('click', function(e){
-            deliveryPrice = $('#objednavka_eshop_delivery option:selected').attr('data-price');
-            $('#delivery').text(deliveryPrice);          
-            })
-        
-        $('#objednavka_eshop_payment').on('click', function(e){
-            paymentPrice = $('#objednavka_eshop_payment option:selected').attr('data-price');
-            $('#payment').text(paymentPrice);          
-            })
-        
+            
+            $(document).ready(function(e){        
+                deliveryPrice = $('#objednavka_eshop_delivery option:selected').attr('data-price');
+                $('#delivery').text(deliveryPrice);          
+                })
+            
+            $(document).ready(function(e){
+                paymentPrice = $('#objednavka_eshop_payment option:selected').attr('data-price');
+                $('#payment').text(paymentPrice);          
+                })
+                   
+            $('#objednavka_eshop_delivery').on('click', function(e){
+                deliveryPrice = $('#objednavka_eshop_delivery option:selected').attr('data-price');
+                $('#delivery').text(deliveryPrice);          
+                })
+            
+            $('#objednavka_eshop_payment').on('click', function(e){
+                paymentPrice = $('#objednavka_eshop_payment option:selected').attr('data-price');
+                $('#payment').text(paymentPrice);          
+                })
+            
         </script>        
         {% endblock %}

@@ -134,8 +134,8 @@ class ObjednavkaEshopController extends AbstractController
             + $objednavka->getPaymentPriceCZK() + ($objednavka->getPaymentPriceEUR() * 25.86);
             $objednavka->setTotalPrice($totalPrice);
             //NASTAVENÍ DATA - ještě je třeba dodělat
-            //$date = getDate();                    
-            //$objednavka->setDate($date);          
+            $date = date("Y-m-d H:i:s");                    
+            $objednavka->setDate(new \DateTime($date));          
             //NASTAVENÍ POČTU ZBOŽÍ NA SKLADĚ
             foreach ($basket as $polozka){      //přes pole košíku, pracuje se mi s ním líp než s polem objektů ($shoppingBag)
                 $product = $productRepository->find($polozka['id']); //načtení objektu, aby se dalo upravit množství
