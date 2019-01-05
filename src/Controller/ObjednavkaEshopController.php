@@ -85,7 +85,7 @@ class ObjednavkaEshopController extends AbstractController
                 $enoughStock = true;
             } else {
                 $enoughStock = false;
-                break;                                              //když je jednoho málo, cyklus se zastaví a proměnná je falsa
+                break;                                              //když je jednoho málo, cyklus se zastaví a proměnná je false
             }
         }
         
@@ -135,7 +135,9 @@ class ObjednavkaEshopController extends AbstractController
             $objednavka->setTotalPrice($totalPrice);
             //NASTAVENÍ DATA - ještě je třeba dodělat
             $date = date("Y-m-d H:i:s");                    
-            $objednavka->setDate(new \DateTime($date));          
+            $objednavka->setDate(new \DateTime($date));
+            //NASTAVENÍ STAVU OBJEDNÁVKY
+            $objednavka->setState('Nová');
             //NASTAVENÍ POČTU ZBOŽÍ NA SKLADĚ
             foreach ($basket as $polozka){      //přes pole košíku, pracuje se mi s ním líp než s polem objektů ($shoppingBag)
                 $product = $productRepository->find($polozka['id']); //načtení objektu, aby se dalo upravit množství

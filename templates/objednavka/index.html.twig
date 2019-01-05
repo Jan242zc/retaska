@@ -3,30 +3,31 @@
 {% block title %}Administrace objednávek{% endblock %}
 
 {% block body %}
-
+    
     <h1>Administrace objednávek</h1>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>ShoppingBag</th>
+                <th>Objednané zboží</th>
                 <th>Email</th>
-                <th>Phone</th>
-                <th>Customer</th>
-                <th>Street</th>
-                <th>City</th>
-                <th>Psc</th>
-                <th>Country</th>
-                <th>Note</th>
-                <th>ProductPrice</th>
-                <th>DeliveryPrice</th>
-                <th>Payment</th>
-                <th>PaymentPriceCZK</th>
-                <th>PaymentPriceEUR</th>
-                <th>TotalPrice</th>
-                <th>Date</th>
-                <th>actions</th>
+                <th>Telefon</th>
+                <th>Zákazník</th>
+                <th>Ulice a č.p.</th>
+                <th>Město</th>
+                <th>PSČ</th>
+                <th>Stát</th>
+                <th>Poznámka</th>
+                <th>Cena zboží</th>
+                <th>Cena dopravy</th>
+                <th>Způsob platby</th>
+                <th>Cena platby (Kč)</th>
+                <th>Cena platby (EUR)</th>
+                <th>Celková cena</th>
+                <th>Datum</th>
+                <th>Stav</th>
+                <th>Možnosti</th>
             </tr>
         </thead>
         <tbody>
@@ -38,6 +39,7 @@
                     Cena: {{ bag.productPrice }} Kč<br>
                     Objednané množství: {{ bag.productAmount }} ks<br>
                     {% endfor %}
+                </td>
                 <td>{{ objednavka.email }}</td>
                 <td>{{ objednavka.phone }}</td>
                 <td>{{ objednavka.customer }}</td>
@@ -53,14 +55,19 @@
                 <td>{{ objednavka.paymentPriceEUR }}</td>
                 <td>{{ objednavka.totalPrice }}</td>
                 <td>{{ objednavka.date ? objednavka.date|date('Y-m-d') : '' }}</td>
+                <td>{{ objednavka.state }}</td>
                 <td>
                     <a class="btn btn-info" href="{{ path('objednavka_show', {'id': objednavka.id}) }}">Zobrazit detail</a>
-                    <a class="btn btn-warning" href="{{ path('objednavka_edit', {'id': objednavka.id}) }}">Upravit</a>
+                    
+                    {% if objednavka.state != 'Zrušená' %}
+                        <a class="btn btn-warning" href="{{ path('objednavka_edit', {'id': objednavka.id}) }}">Upravit</a>
+                    {% endif %}
+                    
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="17">no records found</td>
+                <td colspan="17">Nejsou evidovány žádné objednávky</td>
             </tr>
         {% endfor %}
         </tbody>

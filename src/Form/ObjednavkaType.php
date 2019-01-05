@@ -10,6 +10,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class ObjednavkaType extends AbstractType
 {
@@ -43,6 +44,14 @@ class ObjednavkaType extends AbstractType
                 'choice_label' => 'name'            
             ])
             ->add('date')
+            ->add('state', ChoiceType::class, [
+                'choices' => [
+                    'Nová' => 'Nová',
+                    'Potvrzená' => 'Potvrzená',
+                    'Odeslaná' => 'Odeslaná',
+                    'Zrušená' => 'Zrušená'
+                    ]
+            ])
         ;
     }
 

@@ -59,12 +59,26 @@ class ObjednavkaController extends AbstractController
     /**
      * @Route("/{id}/edit", name="objednavka_edit", methods="GET|POST")
      */
-    public function edit(Request $request, Objednavka $objednavka): Response
+    public function edit(Request $request, Objednavka $objednavka, ProductRepository $productRepository): Response
     {
         $form = $this->createForm(ObjednavkaType::class, $objednavka);
         $form->handleRequest($request);
-
+        $shoppingBag = [];
+        
         if ($form->isSubmitted() && $form->isValid()) {
+            //načtení zboží v objednávce
+            $formData = $form->getData();
+            if ($objednavka->getState() === 'Zrušená') {
+                $shoppingBag = $objednavka->getShoppingBag();
+                foreach ($shoppingBag as $item) {
+                    $productId = $item->getProductId();
+                    $amountChange = $item->getProductAmount();
+                    $product = $productRepository->find($productId);
+                    $productOldStock = $product->getStock();
+                    $productNewStock = $productOldStock + $amountChange;
+                    $product->setStock($productNewStock);
+                }
+            }
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('objednavka_index', ['id' => $objednavka->getId()]);

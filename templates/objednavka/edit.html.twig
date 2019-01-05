@@ -6,9 +6,9 @@
     <h1>Edit Objednavka</h1>
 
     {{ include('objednavka/_form.html.twig', {'button_label': 'Update'}) }}
-
+    <span><font color="red">Upozornění: po změně stavu objednávky na "Zrušená" již nebude možné objednávku upravovat!</font></span>
     {{ include('objednavka/_delete_form.html.twig') }}
     
     <a href="{{ path('objednavka_index') }}" class="btn btn-secondary">Zpět na výpis</a>
-    
+        
 {% endblock %}

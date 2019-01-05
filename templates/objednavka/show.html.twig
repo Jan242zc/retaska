@@ -12,12 +12,13 @@
                 <td>{{ objednavka.id }}</td>
             </tr>
             <tr>
-                <th>Product</th>
-                <td>{{ objednavka.product }}</td>
-            </tr>
-            <tr>
-                <th>Quantity</th>
-                <td>{{ objednavka.quantity }}</td>
+                <th>Zboží</th>
+                <td>{% for bag in objednavka.shoppingBag %}
+                    Název produktu: {{ bag.productName }},
+                    Cena: {{ bag.productPrice }} Kč,
+                    Objednané množství: {{ bag.productAmount }} ks;<br>
+                    {% endfor %}
+                </td>
             </tr>
             <tr>
                 <th>Email</th>
@@ -71,10 +72,16 @@
                 <th>Date</th>
                 <td>{{ objednavka.date ? objednavka.date|date('Y-m-d') : '' }}</td>
             </tr>
+            <tr>
+                <th>Stav</th>
+                <td>{{ objednavka.state }}</td>
+            </tr>
         </tbody>
     </table>
-
-    <a href="{{ path('objednavka_edit', {'id': objednavka.id}) }}" class="btn btn-warning">Upravit</a>
+    
+    {% if objednavka.state != 'Zrušená' %}
+        <a href="{{ path('objednavka_edit', {'id': objednavka.id}) }}" class="btn btn-warning">Upravit</a>
+    {% endif %}
 
     {{ include('objednavka/_delete_form.html.twig') }}
     

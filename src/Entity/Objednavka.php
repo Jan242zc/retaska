@@ -9,7 +9,7 @@ use App\Entity\Category;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
-
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ObjednavkaRepository")
@@ -122,6 +122,12 @@ class Objednavka
      * @ORM\OneToMany(targetEntity="App\Entity\ShoppingBag", mappedBy="objednavka")
      */
     private $ShoppingBag;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     * @Assert\Choice({"Nová", "Potvrzená", "Odeslaná", "Zrušená"})
+     */
+    private $state;
 
     public function __construct()
     {
@@ -388,6 +394,18 @@ class Objednavka
                 $shoppingBag->setObjednavka(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(?string $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }
