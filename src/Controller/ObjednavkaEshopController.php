@@ -95,9 +95,12 @@ class ObjednavkaEshopController extends AbstractController
         } else {
             $varovani = "Vybrali jste příliš vysoký počet kusů. Vraťte se prosím do košíku a upravte množství.";
         }
-                
+        
+        $pscValid = false;
+        
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            //$pscValid = validatePsc($objednavka->getPsc());
             if ($enoughStock === true) {                            //pokud je na skladě dost tašek...
             //NASTAVENÍ CENY PRODUKTU A CELKOVÉ CENY TAŠEK
             $numberOfGoods = count($basket);
@@ -176,4 +179,5 @@ class ObjednavkaEshopController extends AbstractController
             'enoughStock' => var_dump($enoughStock)
         ]);
     }
+    
 }

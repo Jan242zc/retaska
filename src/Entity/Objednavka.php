@@ -35,6 +35,7 @@ class Objednavka
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Email
      */
     private $email;
 
@@ -60,6 +61,11 @@ class Objednavka
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\Type("numeric")
+     * @Assert\Length(
+     *         min = 5,
+     *         max = 5
+     * )
      */
     private $psc;
 
