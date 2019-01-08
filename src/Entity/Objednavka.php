@@ -24,16 +24,6 @@ class Objednavka
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $product;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $quantity;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\NotBlank()
      * @Assert\Email
@@ -156,30 +146,6 @@ class Objednavka
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getProduct(): ?int
-    {
-        return $this->product;
-    }
-
-    public function setProduct(?int $product): self
-    {
-        $this->product = $product;
-
-        return $this;
-    }
-
-    public function getQuantity(): ?int
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(?int $quantity): self
-    {
-        $this->quantity = $quantity;
-
-        return $this;
     }
 
     public function getEmail(): ?string
