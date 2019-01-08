@@ -7,8 +7,9 @@
             <div class="row">
                 <div class="col-8">
                     <h2>Dokončete svoji objednávku</h2>
+                    {% if varovani != "" %}
                     <br> <b>{{ varovani }}</b> <br>
-                    {{ enoughStock }}
+                    {% endif %}
                     {{ form_start(form) }}
                         <h5> Osobní údaje </h5>
                         Jméno a příjmení:
@@ -40,17 +41,21 @@
                 <div class="col-4">
                 <h2>Rekapitulace nákupu</h2>
                 <h4>Dodací podmínky</h4>
-                <div>Cena nakupovaného zboží: <span id="productsPrice">{{ productPrice }}</span> Kč
-                </div>
-                <div> Cena dopravy: &nbsp
-                <span id="delivery"> </span>
-                </div>
-                <div> Cena platby: &nbsp
-                <span id="payment"> </span>
-                </div><br>
-                <div><b>Celková cena objednávky: &nbsp
-                <span id="totalPrice"> </span></b>
-                </div> <hr>
+                    <div>
+                        Cena nakupovaného zboží: <span id="productsPrice">{{ productPrice }}</span> Kč
+                    </div>
+                    <div> 
+                        Cena dopravy: &nbsp
+                        <span id="delivery"> </span> Kč
+                    </div>
+                    <div> 
+                        Cena platby: &nbsp
+                        <span id="payment"> </span> Kč
+                    </div><br>
+                    <div>
+                        <b>Celková cena objednávky: &nbsp
+                        <span id="totalPrice"> </span> Kč</b>
+                    </div> <hr>
                 <h4>Nakupované zboží</h4>
                 {% for array in goodsForTwig %}
                     <div>
@@ -72,22 +77,6 @@
         {% block javascripts %}
         <script>        
         
-           $(document).ready(function(){
-                var deliveryPrice = $('#delivery').text();
-                var paymentPrice = $('#payment').text();
-                var productsPrice = '{{ productPrice }}';
-                var totalPrice = parseInt(deliveryPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
-                $('#totalPrice').text(totalPrice);
-            })
-            
-            $('#objednavka_eshop_payment, #objednavka_eshop_delivery').on('click', function(e){
-                var deliveryPrice = $('#delivery').text();
-                var paymentPrice = $('#payment').text();
-                var productsPrice = '{{ productPrice }}';
-                var totalPrice = parseInt(deliveryPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
-                $('#totalPrice').text(totalPrice);
-            })
-            
             $(document).ready(function(e){        
                 deliveryPrice = $('#objednavka_eshop_delivery option:selected').attr('data-price');
                 $('#delivery').text(deliveryPrice);          
@@ -97,15 +86,31 @@
                 paymentPrice = $('#objednavka_eshop_payment option:selected').attr('data-price');
                 $('#payment').text(paymentPrice);          
                 })
+            
+            $(document).ready(function(){
+                var deliveryPrice = $('#delivery').text();
+                var paymentPrice = $('#payment').text();
+                var productsPrice = '{{ productPrice }}';
+                var totalPrice = parseInt(deliveryPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
+                $('#totalPrice').text(totalPrice);
+            })
                    
             $('#objednavka_eshop_delivery').on('click', function(e){
                 deliveryPrice = $('#objednavka_eshop_delivery option:selected').attr('data-price');
-                $('#delivery').text(deliveryPrice);          
+                $('#delivery').text(deliveryPrice);
+                var paymentPrice = $('#payment').text();
+                var productsPrice = '{{ productPrice }}';
+                var totalPrice = parseInt(deliveryPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
+                $('#totalPrice').text(totalPrice);
                 })
             
             $('#objednavka_eshop_payment').on('click', function(e){
                 paymentPrice = $('#objednavka_eshop_payment option:selected').attr('data-price');
-                $('#payment').text(paymentPrice);          
+                $('#payment').text(paymentPrice);
+                var deliveryPrice = $('#delivery').text();
+                var productsPrice = '{{ productPrice }}';
+                var totalPrice = parseInt(deliveryPrice) + parseInt(paymentPrice) + parseInt(productsPrice);
+                $('#totalPrice').text(totalPrice);
                 })
             
         </script>        

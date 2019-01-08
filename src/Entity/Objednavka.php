@@ -35,32 +35,42 @@ class Objednavka
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
      * @Assert\Email
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 9, max = 16)
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 2, max = 50)
      */
     private $customer;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 2, max = 50)
      */
     private $street;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 2, max = 50)
      */
     private $city;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank()
      * @Assert\Type("numeric")
      * @Assert\Length(
      *         min = 5,
@@ -71,16 +81,19 @@ class Objednavka
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Country")
+     * @Assert\NotBlank()
      */
     private $country;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Delivery")
+     * @Assert\NotBlank()
      */
     private $delivery;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Payment")
+     * @Assert\NotBlank()
      */
     private $payment;
 

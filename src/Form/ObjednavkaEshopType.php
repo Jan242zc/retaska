@@ -16,20 +16,13 @@ class ObjednavkaEshopType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            //->add('product')
-            //->add('quantity')
             ->add('email')
             ->add('phone')
             ->add('customer')
             ->add('street')
             ->add('city')
             ->add('psc')
-            ->add('note')
-            //->add('productPrice')
-            //->add('deliveryPrice')
-            //->add('paymentPriceCZK')
-            //->add('paymentPriceEUR')
-            //->add('totalPrice')            
+            ->add('note')           
             ->add('country', EntityType::class, [
                 'class' => Country::class,
                 'choice_label' => 'name'            
@@ -48,7 +41,6 @@ class ObjednavkaEshopType extends AbstractType
                             return ['data-price' => $payment->getPrice()];
                         }
             ])
-            //->add('date')
         ;
     }
 

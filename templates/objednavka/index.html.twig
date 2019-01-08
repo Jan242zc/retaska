@@ -10,20 +10,20 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Objednané zboží</th>
+                <th>Zákazník</th>
                 <th>Email</th>
                 <th>Telefon</th>
-                <th>Zákazník</th>
                 <th>Ulice a č.p.</th>
                 <th>Město</th>
                 <th>PSČ</th>
                 <th>Stát</th>
                 <th>Poznámka</th>
+                <th>Objednané zboží</th>
                 <th>Cena zboží</th>
+                <th>Doprava</th>
                 <th>Cena dopravy</th>
                 <th>Způsob platby</th>
-                <th>Cena platby (Kč)</th>
-                <th>Cena platby (EUR)</th>
+                <th>Cena platby</th>
                 <th>Celková cena</th>
                 <th>Datum</th>
                 <th>Stav</th>
@@ -34,25 +34,30 @@
         {% for objednavka in objednavkas %}
             <tr>
                 <td>{{ objednavka.id }}</td>
-                <td>{% for bag in objednavka.shoppingBag %}
-                    Název produktu: {{ bag.productName }} <br>
-                    Cena: {{ bag.productPrice }} Kč<br>
-                    Objednané množství: {{ bag.productAmount }} ks<br>
-                    {% endfor %}
-                </td>
+                <td>{{ objednavka.customer }}</td>
                 <td>{{ objednavka.email }}</td>
                 <td>{{ objednavka.phone }}</td>
-                <td>{{ objednavka.customer }}</td>
                 <td>{{ objednavka.street }}</td>
                 <td>{{ objednavka.city }}</td>
                 <td>{{ objednavka.psc }}</td>
                 <td>{{ objednavka.country.name }} </td>
                 <td>{{ objednavka.note }}</td>
+                <td>
+                    {% for item in objednavka.shoppingBag %}
+                    Název produktu: {{ item.productName }} <br>
+                    Cena: {{ item.productPrice }} Kč<br>
+                    Objednané množství: {{ item.productAmount }} ks<br>
+                    {% endfor %}
+                </td>
                 <td>{{ objednavka.productPrice }}</td>
+                <td>{{ objednavka.delivery.name}}
                 <td>{{ objednavka.deliveryPrice }}</td>
                 <td>{{ objednavka.payment.name }} </td>
+                {% if objednavka.paymentPriceEUR == null %}
                 <td>{{ objednavka.paymentPriceCZK }}</td>
+                {% else %}
                 <td>{{ objednavka.paymentPriceEUR }}</td>
+                {% endif %}
                 <td>{{ objednavka.totalPrice }}</td>
                 <td>{{ objednavka.date ? objednavka.date|date('Y-m-d') : '' }}</td>
                 <td>{{ objednavka.state }}</td>

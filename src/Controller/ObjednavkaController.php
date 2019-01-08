@@ -22,7 +22,7 @@ class ObjednavkaController extends AbstractController
      */
     public function index(ObjednavkaRepository $objednavkaRepository): Response
     {
-        return $this->render('objednavka/index.html.twig', ['objednavkas' => $objednavkaRepository->findAll()]);
+        return $this->render('objednavka/index.html.twig', ['objednavkas' => $objednavkaRepository->getAllFromTheNewest()]);
     }
 
     /**

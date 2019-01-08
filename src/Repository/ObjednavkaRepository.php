@@ -18,6 +18,15 @@ class ObjednavkaRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Objednavka::class);
     }
+    
+    public function getAllFromTheNewest()
+    {
+        return $this->createQueryBuilder('o')
+            ->orderBy('o.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 
     // /**
     //  * @return Objednavka[] Returns an array of Objednavka objects
