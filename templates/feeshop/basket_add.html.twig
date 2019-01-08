@@ -6,12 +6,11 @@
 <div class="container">
     <h2>Přidat zboží do košíku</h2>
     <p>{{ varovani }}</p>
-    <span id="totalPriceLabel"> Celková cena: </span> <span id ="totalPrice"> </span>
-    <br>
         {{ form_start(form) }}
             Název produktu: {{product.name}} <br>
-            Cena za kus: {{product.price}} <br>
+            Cena za kus: {{product.price}} Kč<br>
             Počet kusů na skladě: {{ product.stock }} <br>
+            <span id="totalPriceLabel"> Celková cena: </span> <span id ="totalPrice"> </span> Kč<br>
             Množství: {{ form_widget(form.quantity) }} 
         {{ form_end(form) }}
     <a href="{{path('basket_delete', {product: product.id}) }}" class="btn btn-danger">Odstranit z košíku</a> <br> <br>
